@@ -27,7 +27,7 @@ func main() {
 		log.Fatalf("Failed to get container ID: %s", err)
 	}
 
-	err = ecsexecpf.StartSession(opts.Cluster, opts.Task, containerId, opts.Port, opts.LocalPort)
+	err = ecsexecpf.StartSession(opts.Cluster, opts.Task, containerId, opts.Host, opts.Port, opts.LocalPort)
 
 	if err != nil {
 		log.Fatalf("Failed to start session: %s", err)

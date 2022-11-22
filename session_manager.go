@@ -10,14 +10,14 @@ import (
 	"syscall"
 )
 
-func StartSession(cluster string, taskId string, containerId string, port uint16, localPort uint16) error {
+func StartSession(cluster string, taskId string, containerId string, endpoint string,port uint16, localPort uint16) error {
 	target := fmt.Sprintf("ecs:%s_%s_%s", cluster, taskId, containerId)
-	params := fmt.Sprintf(`{"portNumber":["%d"],"localPortNumber":["%d"]}`, port, localPort)
+	params := fmt.Sprintf(`{"host":["%s"],"portNumber":["%d"],"localPortNumber":["%d"]}`, endpoint, port, localPort)
 
 	cmdWithArgs := []string{
 		"aws", "ssm", "start-session",
 		"--target", target,
-		"--document-name", "AWS-StartPortForwardingSession",
+		"--document-name", "AWS-StartPortForwardingSessionToRemoteHost",
 		"--parameters", params,
 	}
 
